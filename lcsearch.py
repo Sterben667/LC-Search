@@ -148,7 +148,7 @@ def main():
   os.system("clear")
   print(blue + motd)
   print(info)
-  menu("1", "Search by ID")
+  menu("1", "Search by Facebook ID")
   menu("2", "Search by cell number")
   menu("3", "Search by email")
   menu("3", "How to find Facebook user ID ?")
