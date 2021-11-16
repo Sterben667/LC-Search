@@ -1,4 +1,5 @@
 import os
+import platform
 from os import listdir
 from os.path import isfile, join
 try :
@@ -11,17 +12,41 @@ except :
   except:
     print("Error, please contact dev")
 
-discord = "\nDiscord : https://discord.gg/pXc3xeCBVm\n"
-path = os.getcwd()
-mypath = path + "/db"
-shein_path = path +"/db_shein"
-db = [f for f in listdir(mypath) if isfile(join(mypath, f))]
-shein_db = [f for f in listdir(shein_path) if isfile(join(shein_path, f))]
 red = Fore.RED
 blue = Fore.BLUE
 green = Fore.GREEN
 dim = Style.DIM
 reset = Style.RESET_ALL
+path = os.getcwd()
+test_path = path + "//db"
+isdir = os.path.isdir(test_path)
+plt = platform.system()
+
+if plt == "linux" or plt == "linux2":
+  clear = 'clear'
+else:
+  clear = "cls"  
+
+if isdir == True:
+  pass
+elif isdir == False or db_count == "0":
+  os.system("mkdir db")
+  print(red + "Error: No Databases detected please put them in db file (first launch ?)")
+  input("\n\nPress enter to back to the menu....")
+else:
+  pass
+
+discord = "\nDiscord : https://discord.gg/pXc3xeCBVm\n"
+mypath = path + "/db"
+shein_path = path +"/db_shein"
+db = [f for f in listdir(mypath) if isfile(join(mypath, f))]
+
+try:
+  shein_db = [f for f in listdir(shein_path) if isfile(join(shein_path, f))]
+except:
+  os.system("mkdir db_shein")
+  shein_db = [f for f in listdir(shein_path) if isfile(join(shein_path, f))]
+
 title = "Made by Laughing Coffin Team"
 db_count = len(db) + len(shein_db) 
 titled = "\n      " + red + title + "\n" + reset 
@@ -36,19 +61,9 @@ motd = """
                    ▀       █   ██                ▀    
                                                       
                  """
-test_path = path + "//db"
-isdir = os.path.isdir(test_path)
-if isdir == True:
-  print("")
-elif isdir == False or db_count == "0":
-  os.system("mkdir db")
-  print(red + "Error: No Databases detected please put them in db file (first launch ?)")
-  input("\n\nPress enter to back to the menu....")
-else:
-  pass
 
 def results(data, file):
-  os.system("clear")
+  os.system(clear)
   print(blue + motd)
   print(info)
   cell_phone = data[0]
@@ -61,77 +76,74 @@ def results(data, file):
   print(reset)
 
 def mailsearch():
-  os.system("clear")
+  os.system(clear)
   print(blue + motd)
   print(info)
   mail = input("Mail : ")
   for files in shein_db:
-    f = open(shein_path + "/" + files, "r", errors='ignore')
-    f1 = f.readlines()
-    for x in f1:
-      x = x.split(":")
-      if x[0] == mail:
-        print(green + dim + "Data Found in : " + files + "!!!!" + reset)
-        print(green + dim + "mail: " + x[0] + " mdp: " + x[1] + reset)
-        input("\n\nPress enter to back to the menu....")
-        f.close()
-        del f, f1
-        main()
-      else:
-        pass
-    print("No data found in :" + files)
-    f.close()
-    del f, f1  
+    with open(shein_path + "/" + files, "r",  encoding="utf8", errors='ignore') as f1:
+      for lines in f1:
+        lines = lines.split(":")
+        if lines[0] == mail:
+          print(green + dim + "Data Found in : " + files + "!!!!" + reset)
+          print(green + dim + "mail: " + lines[0] + " mdp: " + lines[1] + reset)
+          input("\n\nPress enter to back to the menu....")
+          f1.close()
+          del f1
+          main()
+        else:
+          pass
+      print("No data found in :" + files)
+      f1.close()
+      del f1  
 
 def idsearch():
-  os.system("clear")
+  os.system(clear)
   print(blue + motd)
   print(info)
   fb_id = input("Facebook ID : ")
   for files in db:
-    f = open(mypath + "/" + files, "r")
-    f1 = f.readlines()
-    for x in f1:
-      x = x.split(",")
-      if x[1] == fb_id:
-        print(green + dim + "Data Found in : " + files + "!!!!" + reset)
-        results(x, files)
-        input("\n\nPress enter to back to the menu....")
-        f.close()
-        del f, f1
-        main()
-      else:
-        pass
-    print("No data found in :" + files)
-    f.close()
-    del f, f1
+    with open(mypath + "/" + files, "r", encoding="utf8") as f1:
+      for lines in f1:
+        lines = lines.split(",")
+        if lines[1] == fb_id:
+          print(green + dim + "Data Found in : " + files + "!!!!" + reset)
+          results(lines, files)
+          input("\n\nPress enter to back to the menu....")
+          f1.close()
+          del f1
+          main()
+        else:
+          pass
+      print("No data found in :" + files)
+      f1.close()
+      del f1
 
 def phonesearch():
-  os.system("clear")
+  os.system(clear)
   print(blue + motd)
   print(info)
   fb_phone = input("Cell Phone (write national code example: +33): ")
   cell_phone = fb_phone.replace("+", "")
   for files in db:
-    f = open(mypath + "/" + files, "r")
-    f1 = f.readlines()
-    for x in f1:
-      x = x.split(",")
-      if x[0] == cell_phone:
-        print(green + dim + "Data Found in : " + files + "!!!!" + reset)
-        results(x, files)
-        input("\n\nPress enter to back to the menu....")
-        f.close()
-        del f, f1
-        main()
-      else:
-        pass
-    print("No data found in :" + files)
-    f.close()
-    del f, f1
+    with open(mypath + "/" + files, "r", encoding="utf8") as f1:
+      for lines in f1:
+        lines = lines.split(",")
+        if lines[0] == cell_phone:
+          print(green + dim + "Data Found in : " + files + "!!!!" + reset)
+          results(lines, files)
+          input("\n\nPress enter to back to the menu....")
+          f1.close()
+          del f1
+          main()
+        else:
+          pass
+      print("No data found in :" + files)
+      f1.close()
+      del f1
 
 def howtofind():
-  os.system("clear")
+  os.system(clear)
   print(blue + motd)
   print(info)
   print("Go to :")
@@ -145,12 +157,12 @@ def menu(Number, Text):
   print(render)
 
 def main():
-  os.system("clear")
+  os.system(clear)
   print(blue + motd)
   print(info)
   menu("1", "Search by Facebook ID")
   menu("2", "Search by cell number")
-  menu("3", "Search by email")
+  menu("3", "Search by email (db with mail:pass format only)")
   menu("3", "How to find Facebook user ID ?")
   choice = int(input(red + "---->  "))
   if choice == 1:
