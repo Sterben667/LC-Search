@@ -22,7 +22,7 @@ test_path = path + "//db"
 isdir = os.path.isdir(test_path)
 plt = platform.system()
 
-if plt == "linux" or plt == "linux2":
+if plt == "Linux" or plt == "Linux2":
   clear = 'clear'
 else:
   clear = "cls"  
