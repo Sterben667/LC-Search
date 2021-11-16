@@ -1,5 +1,7 @@
 #           LCSEARCH
 
+This tool can search and find information of Facebook user with a phone number or with ID.
+
 ### How to install : 
 ```
 git clone https://github.com/Sterben667/LC-Search/edit/main/README.md
