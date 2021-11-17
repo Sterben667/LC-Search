@@ -124,7 +124,7 @@ def phonesearch():
   print(blue + motd)
   print(info)
   fb_phone = input("Cell Phone (write national code example: +33): ")
-  cell_phone = fb_phone.replace("+", "")
+  cell_phone = fb_phone.replace("+3", "")
   for files in db:
     with open(mypath + "/" + files, "r", encoding="utf8") as f1:
       for lines in f1:
